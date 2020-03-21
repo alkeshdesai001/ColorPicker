@@ -10,9 +10,9 @@ const Palette = props => {
   ));
 
   return (
-    <div className='palette'>
+    <div className='Palette'>
       {/* Navbar */}
-      <div className='palette-colors'>{colorBoxes}</div>
+      <div className='PaletteColors'>{colorBoxes}</div>
       {/* Footer */}
     </div>
   );
