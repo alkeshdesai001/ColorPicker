@@ -2,10 +2,16 @@ import React from 'react';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import DropDown from '../utils/DropDown';
 
 import './Navbar.css';
 
-const Navbar = ({ sliderState, setSliderState }) => (
+const Navbar = ({
+  sliderState,
+  setSliderState,
+  colorCode,
+  handleColorCode
+}) => (
   <div className='Navbar'>
     <div className='Logo'>
       <a href='#!'>Color Picker</a>
@@ -21,6 +27,9 @@ const Navbar = ({ sliderState, setSliderState }) => (
           onAfterChange={value => setSliderState(value)}
         />
       </div>
+    </div>
+    <div className='DropDown'>
+      <DropDown colorCode={colorCode} handleColorCode={handleColorCode} />
     </div>
   </div>
 );
