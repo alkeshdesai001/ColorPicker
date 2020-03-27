@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import ColorBox from './colorBox/ColorBox';
 import Navbar from '../../components/navbar/Navbar';
@@ -7,42 +8,44 @@ import Snackbar from '../../components/utils/Snackbar';
 
 import './Palette.css';
 
-const Palette = props => {
-  const [sliderState, setSliderState] = useState(500);
+const SingleColorPalette = props => {
+  const { cid } = useParams();
+  const { palette } = props;
+
   const [colorCode, setColorCode] = useState('hex');
-
-  const colorBoxes = props.palette.colors[sliderState].map(color => (
-    <ColorBox
-      key={color.id}
-      cid={color.id}
-      pid={props.palette.id}
-      background={color[colorCode]}
-      name={color.name}
-    />
-  ));
-
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  const handleClose = (event, reason) => {
-    // if (reason === 'clickaway') {
-    //   return;
-    // }
-    setOpenSnackbar(false);
-  };
+  const handleClose = (event, reason) => setOpenSnackbar(false);
 
   const handleColorCode = e => {
     setColorCode(e.target.value);
     setOpenSnackbar(true);
   };
 
+  let singlePalette = [];
+  for (let key in palette.colors) {
+    let color = palette.colors[key].find(col => col.id === cid);
+    singlePalette.push(color);
+  }
+
+  singlePalette = singlePalette.splice(1);
+
+  console.log(palette, singlePalette);
+
+  const colorBoxes = singlePalette.map(color => (
+    <ColorBox
+      key={color.name}
+      cid={color.id}
+      pid={props.palette.id}
+      background={color[colorCode]}
+      name={color.name}
+      singlePalette={true}
+    />
+  ));
+
   return (
     <div className='Palette'>
-      <Navbar
-        sliderState={sliderState}
-        setSliderState={setSliderState}
-        colorCode={colorCode}
-        handleColorCode={handleColorCode}
-      />
+      <Navbar colorCode={colorCode} handleColorCode={handleColorCode} />
       <Snackbar
         openSnackbar={openSnackbar}
         handleClose={handleClose}
@@ -57,4 +60,4 @@ const Palette = props => {
   );
 };
 
-export default Palette;
+export default SingleColorPalette;

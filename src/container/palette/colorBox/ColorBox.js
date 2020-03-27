@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 
 import './ColorBox.css';
 
-const ColorBox = ({ background, name }) => {
+const ColorBox = ({ background, name, cid, pid, singlePalette }) => {
   const [copied, setCopied] = useState(false);
 
   const setCopyHandler = () => setCopied(true);
@@ -15,7 +16,13 @@ const ColorBox = ({ background, name }) => {
 
   return (
     <CopyToClipboard text={background} onCopy={() => setCopyHandler()}>
-      <div style={{ background }} className='ColorBox'>
+      <div
+        style={{
+          background: background,
+          height: singlePalette ? '50%' : '25%'
+        }}
+        className='ColorBox'
+      >
         <div
           style={{ background }}
           className={`CopyOverlay ${copied && 'Show'}`}
@@ -30,7 +37,11 @@ const ColorBox = ({ background, name }) => {
           </div>
           <button className='CopyButton'>Copy</button>
         </div>
-        <span className='SeeMore'>More</span>
+        {!singlePalette && (
+          <Link to={`/palette/${pid}/${cid}`}>
+            <span className='SeeMore'>More</span>
+          </Link>
+        )}
       </div>
     </CopyToClipboard>
   );

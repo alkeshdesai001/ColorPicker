@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import Palette from './container/palette/Palette.js';
+import Palette from './container/palette/Palette';
+import SingleColorPalette from './container/palette/SingleColorPalette';
 import seedColors from './data/seedColors';
 import { generatePalette } from './components/helper/ColorHelper';
 
@@ -28,11 +29,20 @@ const App = () => {
             {home}
           </Route>
           <Route
-            path='/palette/:id'
+            path='/palette/:pid'
             exact
             render={({ match }) => (
               <Palette
-                palette={generatePalette(findPalette(match.params.id))}
+                palette={generatePalette(findPalette(match.params.pid))}
+              />
+            )}
+          />
+          <Route
+            path='/palette/:pid/:cid'
+            exact
+            render={({ match }) => (
+              <SingleColorPalette
+                palette={generatePalette(findPalette(match.params.pid))}
               />
             )}
           />

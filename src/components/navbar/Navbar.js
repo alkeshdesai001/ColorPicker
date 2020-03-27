@@ -16,18 +16,20 @@ const Navbar = ({
     <div className='Logo'>
       <Link to='/'>Color Picker</Link>
     </div>
-    <div className='SliderContainer'>
-      <span>Level: {sliderState}</span>
-      <div className='Slider'>
-        <Slider
-          defaultValue={sliderState}
-          step={100}
-          min={100}
-          max={900}
-          onAfterChange={value => setSliderState(value)}
-        />
+    {sliderState && (
+      <div className='SliderContainer'>
+        <span>Level: {sliderState}</span>
+        <div className='Slider'>
+          <Slider
+            defaultValue={sliderState}
+            step={100}
+            min={100}
+            max={900}
+            onAfterChange={value => setSliderState(value)}
+          />
+        </div>
       </div>
-    </div>
+    )}
     <div className='DropDown'>
       <DropDown colorCode={colorCode} handleColorCode={handleColorCode} />
     </div>
