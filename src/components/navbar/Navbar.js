@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import DropDown from '../utils/DropDown';
@@ -14,7 +14,7 @@ const Navbar = ({
 }) => (
   <div className='Navbar'>
     <div className='Logo'>
-      <a href='#!'>Color Picker</a>
+      <Link to='/'>Color Picker</Link>
     </div>
     <div className='SliderContainer'>
       <span>Level: {sliderState}</span>
