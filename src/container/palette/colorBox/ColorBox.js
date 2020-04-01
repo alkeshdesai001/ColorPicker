@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import './ColorBox.css';
 
-const ColorBox = ({ background, name, cid, pid, singlePalette }) => {
+const ColorBox = ({ background, name, cid, pid, singleColorPalette }) => {
   const [copied, setCopied] = useState(false);
 
   const setCopyHandler = () => setCopied(true);
@@ -19,7 +19,7 @@ const ColorBox = ({ background, name, cid, pid, singlePalette }) => {
       <div
         style={{
           background: background,
-          height: singlePalette ? '50%' : '25%'
+          height: singleColorPalette ? '50%' : '25%'
         }}
         className='ColorBox'
       >
@@ -37,7 +37,7 @@ const ColorBox = ({ background, name, cid, pid, singlePalette }) => {
           </div>
           <button className='CopyButton'>Copy</button>
         </div>
-        {!singlePalette && (
+        {!singleColorPalette && (
           <Link to={`/palette/${pid}/${cid}`}>
             <span className='SeeMore'>More</span>
           </Link>

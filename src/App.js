@@ -1,22 +1,15 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Palette from './container/palette/Palette';
-import SingleColorPalette from './container/palette/SingleColorPalette';
 import seedColors from './data/seedColors';
 import { generatePalette } from './components/helper/ColorHelper';
+
+import PaletteList from './components/paletteList/PaletteList';
 
 import './App.css';
 
 const App = () => {
-  const home = seedColors.map(palette => {
-    return (
-      <p>
-        <Link to={`/palette/${palette.id}`}>{palette.paletteName}</Link>
-      </p>
-    );
-  });
-
   const findPalette = id => {
     return seedColors.find(palette => palette.id === id);
   };
@@ -26,7 +19,7 @@ const App = () => {
       <div className='App'>
         <Switch>
           <Route path='/' exact>
-            {home}
+            <PaletteList seedColors={seedColors} />
           </Route>
           <Route
             path='/palette/:pid'
@@ -41,8 +34,9 @@ const App = () => {
             path='/palette/:pid/:cid'
             exact
             render={({ match }) => (
-              <SingleColorPalette
+              <Palette
                 palette={generatePalette(findPalette(match.params.pid))}
+                singleColorPalette={true}
               />
             )}
           />
