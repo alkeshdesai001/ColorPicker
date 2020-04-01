@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import ColorBox from './colorBox/ColorBox';
 import Navbar from '../../components/navbar/Navbar';
@@ -79,7 +80,22 @@ const Palette = props => {
         handleClose={handleClose}
         messageInfo={`Color format is changed to ${colorCode.toUpperCase()}`}
       />
-      <div className='PaletteColors'>{colorBoxes}</div>
+      <div className='PaletteColors'>
+        {colorBoxes}
+        {singleColorPalette && (
+          <div
+            className='ColorBox'
+            style={{
+              backgroundColor: 'black',
+              height: singleColorPalette ? '50%' : '25%'
+            }}
+          >
+            <Link to={`/palette/${palette.id}`} className='GoBackButton'>
+              Go Back
+            </Link>
+          </div>
+        )}
+      </div>
       <Footer
         paletteName={props.palette.paletteName}
         emoji={props.palette.emoji}
