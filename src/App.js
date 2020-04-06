@@ -7,11 +7,11 @@ import { generatePalette } from './components/helper/ColorHelper';
 
 import PaletteList from './components/paletteList/PaletteList';
 
-import './App.css';
+import './App.scss';
 
 const App = () => {
-  const findPalette = id => {
-    return seedColors.find(palette => palette.id === id);
+  const findPalette = (id) => {
+    return seedColors.find((palette) => palette.id === id);
   };
 
   return (

@@ -7,9 +7,10 @@ import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
 import Snackbar from '../../components/utils/Snackbar';
 
-import './Palette.css';
+import classes from './Palette.module.scss';
+import classesColorBox from './colorBox/ColorBox.module.scss';
 
-const Palette = props => {
+const Palette = (props) => {
   const { palette } = props;
   const singleColorPalette = props.singleColorPalette;
 
@@ -26,7 +27,7 @@ const Palette = props => {
     setOpenSnackbar(false);
   };
 
-  const handleColorCode = e => {
+  const handleColorCode = (e) => {
     setColorCode(e.target.value);
     setOpenSnackbar(true);
   };
@@ -36,7 +37,7 @@ const Palette = props => {
   if (singleColorPalette) {
     let singlePalette = [];
     for (let key in palette.colors) {
-      let color = palette.colors[key].find(col => col.id === cid);
+      let color = palette.colors[key].find((col) => col.id === cid);
       singlePalette.push(color);
     }
 
@@ -44,7 +45,7 @@ const Palette = props => {
 
     console.log(palette, singlePalette);
 
-    colorBoxes = singlePalette.map(color => (
+    colorBoxes = singlePalette.map((color) => (
       <ColorBox
         key={color.name}
         cid={color.id}
@@ -55,7 +56,7 @@ const Palette = props => {
       />
     ));
   } else {
-    colorBoxes = props.palette.colors[sliderState].map(color => (
+    colorBoxes = props.palette.colors[sliderState].map((color) => (
       <ColorBox
         key={color.id}
         cid={color.id}
@@ -68,7 +69,7 @@ const Palette = props => {
   }
 
   return (
-    <div className='Palette'>
+    <div className={classes.Palette}>
       <Navbar
         sliderState={singleColorPalette ? null : sliderState}
         setSliderState={singleColorPalette ? null : setSliderState}
@@ -80,17 +81,20 @@ const Palette = props => {
         handleClose={handleClose}
         messageInfo={`Color format is changed to ${colorCode.toUpperCase()}`}
       />
-      <div className='PaletteColors'>
+      <div className={classes.PaletteColors}>
         {colorBoxes}
         {singleColorPalette && (
           <div
-            className='ColorBox'
+            className={classesColorBox.ColorBox}
             style={{
               backgroundColor: 'black',
-              height: singleColorPalette ? '50%' : '25%'
+              height: singleColorPalette ? '50%' : '25%',
             }}
           >
-            <Link to={`/palette/${palette.id}`} className='GoBackButton'>
+            <Link
+              to={`/palette/${palette.id}`}
+              className={classesColorBox.GoBackButton}
+            >
               Go Back
             </Link>
           </div>

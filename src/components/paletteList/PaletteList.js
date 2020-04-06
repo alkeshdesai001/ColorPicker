@@ -1,21 +1,21 @@
 import React from 'react';
 import MiniPalette from './miniPalette/MiniPalette';
 
-import { withStyles } from '@material-ui/core/styles';
-import styles from './PaletteListStyle';
+// import { withStyles } from '@material-ui/core/styles';
+import classes from './PaletteList.module.scss';
 
-const PaletteList = ({ classes, seedColors }) => (
-  <div className={classes.root}>
-    <div className={classes.container}>
-      <nav className={classes.nav}>
-        <h1 className={classes.title}>React Colors</h1>
+const PaletteList = ({ seedColors }) => (
+  <div className={classes.PaletteList}>
+    <div className={classes.Container}>
+      <nav className={classes.Nav}>
+        <h1 className={classes.Title}>React Colors</h1>
       </nav>
-      <div className={classes.palette}>
-        {seedColors.map(palette => (
+      <div className={classes.Palette}>
+        {seedColors.map((palette) => (
           <MiniPalette key={palette.paletteName} {...palette} />
         ))}
       </div>
     </div>
   </div>
 );
-export default withStyles(styles)(PaletteList);
+export default PaletteList;

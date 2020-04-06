@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './Footer.css';
+import classes from './Footer.module.scss';
 
 const Footer = ({ paletteName, emoji }) => (
-  <div className='Footer'>
+  <div className={classes.Footer}>
     <span>{paletteName}</span>
-    <span className='Emoji'>{emoji}</span>
+    <span className={classes.Emoji}>{emoji}</span>
   </div>
 );
 

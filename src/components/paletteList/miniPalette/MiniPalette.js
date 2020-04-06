@@ -1,27 +1,26 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import styles from './MiniPaletteStyle';
-import { withStyles } from '@material-ui/core/styles';
+import classes from './MiniPalette.module.scss';
 
-const MiniPalette = ({ classes, id, paletteName, emoji, colors }) => {
-  const colorBoxes = colors.map(color => (
+const MiniPalette = ({ id, paletteName, emoji, colors }) => {
+  const colorBoxes = colors.map((color) => (
     <div
       key={color.name}
       style={{ backgroundColor: color.color }}
-      className={classes.colorBoxes}
+      className={classes.ColorBoxes}
     />
   ));
   return (
-    <Link className={classes.link} to={`/palette/${id}`}>
-      <div className={classes.root}>
-        <div className={classes.colors}>{colorBoxes}</div>
-        <h5 className={classes.title}>
-          {paletteName} <span className={classes.emoji}>{emoji}</span>
+    <Link className={classes.Link} to={`/palette/${id}`}>
+      <div className={classes.MiniPalette}>
+        <div className={classes.Colors}>{colorBoxes}</div>
+        <h5 className={classes.Title}>
+          {paletteName} <span className={classes.Emoji}>{emoji}</span>
         </h5>
       </div>
     </Link>
   );
 };
 
-export default withStyles(styles)(MiniPalette);
+export default MiniPalette;
