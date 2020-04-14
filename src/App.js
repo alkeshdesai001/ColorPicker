@@ -1,26 +1,52 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Palette from './container/palette/Palette';
-import seedColors from './data/seedColors';
-import { generatePalette } from './components/helper/ColorHelper';
 
+// import seedColors from './data/seedColors';
+import Spinner from './components/utils/Spinner';
+import { generatePalette } from './components/helper/ColorHelper';
+import Palette from './container/palette/Palette';
 import PaletteList from './components/paletteList/PaletteList';
+import Drawer from './container/drawer/Drawer';
+
+import axios from './axios-colors';
 
 import './App.scss';
 
 const App = () => {
+  const [newColors, setNewColors] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get('/seedColors.json')
+      .then((res) => {
+        let data = res.data;
+        if (!!data) {
+          let newColorsArray = [];
+          for (let key in data) {
+            newColorsArray = newColorsArray.concat(data[key]);
+          }
+          setNewColors(newColorsArray);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
+
   const findPalette = (id) => {
-    return seedColors.find((palette) => palette.id === id);
+    return newColors.find((palette) => palette.id === id);
   };
 
   return (
     <Router>
       <div className='App'>
+        {loading && <Spinner />}
         <Switch>
-          <Route path='/' exact>
-            <PaletteList seedColors={seedColors} />
-          </Route>
+          <Route path='/palette/new' exact render={({ match }) => <Drawer />} />
           <Route
             path='/palette/:pid'
             exact
@@ -40,6 +66,9 @@ const App = () => {
               />
             )}
           />
+          <Route path='/' exact>
+            <PaletteList seedColors={newColors} />
+          </Route>
         </Switch>
       </div>
     </Router>

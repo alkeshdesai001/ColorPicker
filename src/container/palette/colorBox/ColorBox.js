@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import chroma from 'chroma-js';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,11 @@ const ColorBox = ({ background, name, cid, pid, singleColorPalette }) => {
   }, [copied]);
 
   const classShow = copied && classes.Show;
+
+  let titleTextColor =
+    chroma(background).luminance() >= 0.14 ? 'black' : 'white';
+  let copyTextColor =
+    chroma(background).luminance() >= 0.55 ? '#434953' : 'white';
 
   return (
     <CopyToClipboard text={background} onCopy={() => setCopyHandler()}>
@@ -39,14 +45,21 @@ const ColorBox = ({ background, name, cid, pid, singleColorPalette }) => {
           <p>{background}</p>
         </div>
         <div className={classes.CopyContainer}>
-          <div className={classes.BoxContent}>
+          <div style={{ color: titleTextColor }} className={classes.BoxContent}>
             <span>{name}</span>
           </div>
-          <button className={classes.CopyButton}>Copy</button>
+          <button
+            style={{ color: copyTextColor }}
+            className={classes.CopyButton}
+          >
+            Copy
+          </button>
         </div>
         {!singleColorPalette && (
           <Link to={`/palette/${pid}/${cid}`}>
-            <span className={classes.SeeMore}>More</span>
+            <span style={{ color: copyTextColor }} className={classes.SeeMore}>
+              More
+            </span>
           </Link>
         )}
       </div>

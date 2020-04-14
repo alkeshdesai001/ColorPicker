@@ -1,7 +1,7 @@
 import React from 'react';
 import MiniPalette from './miniPalette/MiniPalette';
+import { Link } from 'react-router-dom';
 
-// import { withStyles } from '@material-ui/core/styles';
 import classes from './PaletteList.module.scss';
 
 const PaletteList = ({ seedColors }) => (
@@ -9,6 +9,7 @@ const PaletteList = ({ seedColors }) => (
     <div className={classes.Container}>
       <nav className={classes.Nav}>
         <h1 className={classes.Title}>React Colors</h1>
+        <Link to='/palette/new'>New Palette</Link>
       </nav>
       <div className={classes.Palette}>
         {seedColors.map((palette) => (

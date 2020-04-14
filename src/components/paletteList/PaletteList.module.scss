@@ -17,6 +17,11 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
+
+  & a {
+    color: white;
+  }
 }
 .Palette {
   box-sizing: border-box;
